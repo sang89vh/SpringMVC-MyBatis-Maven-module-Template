@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy todir="../../WebApp/target/mybox" overwrite="true" verbose="false">
+    <fileset excludes="**/resources/js" includes="**/*" dir="./src/main/webapp"/>
+  </copy>
+  <copy todir="../../WebApp/target/mybox/WEB-INF/lib" overwrite="true" verbose="false">
+    <fileset includes="*.jar" dir="./target"/>
+  </copy>
+</target>
+</project>

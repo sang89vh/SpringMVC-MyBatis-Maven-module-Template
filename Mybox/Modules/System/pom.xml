@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>System</artifactId>
+  <name>System Module</name>
+  <groupId>com.myboxteam</groupId>
+  <version>0.0.1-SNAPSHOT</version>
+  <url>http://maven.apache.org</url>
+  
+  <parent>
+  	<groupId>com.myboxteam</groupId>
+  	<artifactId>Mybox</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>Modules/pom.xml</relativePath>
+  </parent>
+  
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>System</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <copy todir="../../WebApp/target/mybox" verbose="false"
+                  overwrite="true">
+                  <fileset dir="./src/main/webapp" includes="**/*" excludes="**/resources/js" />
+                </copy>
+                <copy todir="../../WebApp/target/mybox/WEB-INF/lib"
+                  verbose="false" overwrite="true">
+                  <fileset dir="./target" includes="*.jar" />
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectory>./src/main/webapp/resources/js/</sourceDirectory>
+          <outputDirectory>../../WebApp/target/mybox/resources/js/</outputDirectory>
+          <nosuffix>true</nosuffix>
+          <encoding>UTF-8</encoding>
+          <gzip>false</gzip>
+          <includes>
+            <include>**/*.js</include>
+          </includes>
+          <jswarn>false</jswarn>
+          <statistics>false</statistics>
+          <force>true</force>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
